@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'auth/login_logout_screen.dart';
+import 'package:frontend/screens/start_splash_screen.dart';
+//import 'auth/login_logout_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  // Ensure Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // ✅ Load environment variables before runApp
+  await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
 }
 
@@ -10,9 +18,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: MainSplashScreen(),
     );
   }
 }
