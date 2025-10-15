@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1760116275903,
+      "tag": "0000_clever_silver_surfer",
+      "breakpoints": true
+    }
+  ]
+}
