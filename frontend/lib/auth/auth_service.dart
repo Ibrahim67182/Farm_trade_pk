@@ -46,6 +46,9 @@ class AuthService {
         final token = data['token'];
         final userId = user['email'];
 
+        //test api by printing token of user
+        // print("Token : $token");
+
         // ✅ Save data securely
         await secureStorage.write(key: 'jwt_token_$userId', value: token);
         await secureStorage.write(

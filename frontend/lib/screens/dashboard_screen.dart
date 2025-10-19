@@ -55,7 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   void _showProfileDropdown(BuildContext context, Offset position) async {
     final overlay = Overlay.of(context);
-    if (overlay == null) return;
+    //if (overlay == null) return;
 
     late OverlayEntry overlayEntry;
 
