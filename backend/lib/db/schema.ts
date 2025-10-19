@@ -25,6 +25,7 @@ export const commodities = mysqlTable("commodities", {
 // 🧾 SUPPLIER
 export const suppliers = mysqlTable("suppliers", {
   id: varchar("id", { length: 36 }).primaryKey(),
+  userId: varchar("userId", { length: 36 }).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   company: varchar("company", { length: 255 }),
   email: varchar("email", { length: 255 }),
@@ -36,6 +37,7 @@ export const suppliers = mysqlTable("suppliers", {
 // 👥 CUSTOMER
 export const customers = mysqlTable("customers", {
   id: varchar("id", { length: 36 }).primaryKey(),
+  userId: varchar("userId", { length: 36 }).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   company: varchar("company", { length: 255 }),
   email: varchar("email", { length: 255 }),
@@ -47,6 +49,7 @@ export const customers = mysqlTable("customers", {
 // 💰 TRANSACTION
 export const transactions = mysqlTable("transactions", {
   id: varchar("id", { length: 36 }).primaryKey(),
+  userId: varchar("userId", { length: 36 }).notNull(),
   type: varchar("type", { length: 100 }).notNull(),
   commodityId: varchar("commodityId", { length: 36 }).notNull(),
   quantity: decimal("quantity", { precision: 10, scale: 2 }).notNull(),
@@ -65,6 +68,7 @@ export const transactions = mysqlTable("transactions", {
 // 📦 INVENTORY
 export const inventory = mysqlTable("inventory", {
   id: varchar("id", { length: 36 }).primaryKey(),
+  userId: varchar("userId", { length: 36 }).notNull(),
   commodityId: varchar("commodityId", { length: 36 }).unique().notNull(),
   totalQty: decimal("totalQty", { precision: 12, scale: 2 }).default("0"),
   lastUpdated: datetime("lastUpdated").default(sql`CURRENT_TIMESTAMP`),
@@ -73,6 +77,7 @@ export const inventory = mysqlTable("inventory", {
 // 💹 COMMODITY RATE
 export const commodityRates = mysqlTable("commodityRates", {
   id: varchar("id", { length: 36 }).primaryKey(),
+  userId: varchar("userId", { length: 36 }).notNull(),
   commodityId: varchar("commodityId", { length: 36 }).notNull(),
   pricePerUnit: decimal("pricePerUnit", { precision: 10, scale: 2 }).notNull(),
   fetchedAt: datetime("fetchedAt").default(sql`CURRENT_TIMESTAMP`),
