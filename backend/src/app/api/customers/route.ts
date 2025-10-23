@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../../lib/db/db";
-import { eq, or } from "drizzle-orm";
+import { eq, or , like, and} from "drizzle-orm";
 import { customers } from "../../../../lib/db/schema";
 import { verifyAuth } from "../../../../src/user-auth-helper-function/verifyAuth";
 import { randomUUID } from "crypto";
@@ -29,22 +29,42 @@ export async function GET(req: Request) {
       );
     }
 
+    const { searchParams } = new URL(req.url);
+    const search = searchParams.get("search") || "";
+
+    // Base condition — only fetch this user's customers
+    const baseCondition = eq(customers.userId, userId);
+
+    // If user typed something, add OR search conditions
+    const conditions = search
+      ? and(
+          baseCondition,
+          or(
+            like(customers.name, `%${search}%`),
+            like(customers.email, `%${search}%`),
+            like(customers.company, `%${search}%`),
+            like(customers.phone, `%${search}%`)
+          )
+        )
+      : baseCondition;
+
     const all_customers_data = await db
       .select()
       .from(customers)
-      .where(eq(customers.userId, userId));
+      .where(conditions);
 
-    return NextResponse.json(all_customers_data);
+    return NextResponse.json({
+      success: true,
+      data: all_customers_data,
+    });
   } catch (err: any) {
-    console.error(err);
+    console.error("❌ Error fetching customers:", err);
     return NextResponse.json(
       { success: false, error: err.message },
       { status: 400 }
     );
   }
 }
-
-
 
 
 // creation of new customer for a particular user

@@ -15,6 +15,55 @@
       "when": 1760649392795,
       "tag": "0001_cloudy_frank_castle",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1760958547425,
+      "tag": "0002_sticky_bloodaxe",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1760963961187,
+      "tag": "0003_tense_warbound",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1760982692643,
+      "tag": "0004_ordinary_ricochet",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1760985461104,
+      "tag": "0005_perfect_sentinel",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1760987372003,
+      "tag": "0006_loud_sphinx",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1760989808526,
+      "tag": "0007_safe_timeslip",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1761257297147,
+      "tag": "0008_adorable_the_santerians",
+      "breakpoints": true
     }
   ]
 }

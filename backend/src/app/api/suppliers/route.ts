@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../../lib/db/db";
-import { eq, or } from "drizzle-orm";
+import { eq, or ,like, and} from "drizzle-orm";
 import { suppliers } from "../../../../lib/db/schema";
 import { verifyAuth } from "../../../../src/user-auth-helper-function/verifyAuth";
 import { randomUUID } from "crypto";
@@ -29,22 +29,44 @@ export async function GET(req: Request) {
       );
     }
 
+    const { searchParams } = new URL(req.url);
+    const search = searchParams.get("search") || "";
+
+    // Base condition: only fetch suppliers of the logged-in user
+    const baseCondition = eq(suppliers.userId, userId);
+
+    // Add optional search filter
+    const conditions = search
+      ? and(
+          baseCondition,
+          or(
+            like(suppliers.name, `%${search}%`),
+            like(suppliers.email, `%${search}%`),
+            like(suppliers.phone, `%${search}%`),
+            like(suppliers.company, `%${search}%`)
+          )
+        )
+      : baseCondition;
+
+    // Fetch suppliers
     const all_suppliers_data = await db
       .select()
       .from(suppliers)
-      .where(eq(suppliers.userId, userId));
+      .where(conditions);
 
-    return NextResponse.json(all_suppliers_data);
+    return NextResponse.json({
+      success: true,
+      data: all_suppliers_data,
+    });
 
   } catch (err: any) {
-    console.error(err);
+    console.error("❌ Error fetching suppliers:", err);
     return NextResponse.json(
       { success: false, error: err.message },
       { status: 400 }
     );
   }
 }
-
 
 
 
